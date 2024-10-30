@@ -42,7 +42,6 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, form, "", "")
-	return
 }
 
 func renderError(w http.ResponseWriter, err error) {

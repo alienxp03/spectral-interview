@@ -16,14 +16,19 @@ import (
 func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
+	_, dbNotFound := os.Stat("storage/data.db")
+
 	db, err := sqlite.Connect("data")
 	if err != nil {
 		log.Fatalf("failed to initialize database: %v", err)
 	}
 
-	err = sqlite.Seed(db)
-	if err != nil {
-		log.Fatalf("failed to seed database: %v", err)
+	if dbNotFound != nil {
+		logger.Info("Seeding database for first time run")
+		err = sqlite.Seed(db)
+		if err != nil {
+			log.Fatalf("failed to seed database: %v", err)
+		}
 	}
 
 	addr := flag.String("addr", "localhost:9090", "HTTP network address")

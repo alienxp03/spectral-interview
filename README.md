@@ -4,9 +4,14 @@
 
 An application for monitoring electricity usage.
 
+## Prerequisites
+
+- You will need Go 1.22 or newer installed.
+
 ## How to run the project
 
 - Run the gRPC server
+- First time you run the server, database will be populated with the data found in meterusage.csv
 
   ```bash
   make run-server
