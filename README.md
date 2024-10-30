@@ -10,8 +10,7 @@ An application for monitoring electricity usage.
 
 ## How to run the project
 
-- Run the gRPC server
-- First time you run the server, database will be populated with the data found in meterusage.csv
+- Run the gRPC server. First time you run the server, database will be populated with the data found in `meterusage.csv`
 
   ```bash
   make run-server
@@ -21,6 +20,18 @@ An application for monitoring electricity usage.
 
   ```bash
   make run-client
+  ```
+
+- Run lint
+
+  ```bash
+  make lint
+  ```
+
+- Run test
+
+  ```bash
+  make test
   ```
 
 Open http://localhost:8080 in your browser.
@@ -118,3 +129,5 @@ Client interface to allow the web application to communicate with the gRPC serve
 ## gRPC Server
 
 The gRPC server is a gRPC server that serves the time based electricity consumption data found in meterusage.csv.
+
+## Run the tests
