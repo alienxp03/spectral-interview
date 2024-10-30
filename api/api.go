@@ -70,12 +70,12 @@ func (a *API) GetUsages(ctx context.Context, req *service.GetUsageRequest) (*ser
 }
 
 func parseRequest(req *service.GetUsageRequest) (*usageRequest, error) {
-	startTime, err := time.Parse("2006-01-02 15:04:05", req.StartTime)
+	startTime, err := time.Parse(time.RFC3339, req.StartTime)
 	if err != nil {
 		return nil, errors.New("invalid start time")
 	}
 
-	endTime, err := time.Parse("2006-01-02 15:04:05", req.EndTime)
+	endTime, err := time.Parse(time.RFC3339, req.EndTime)
 	if err != nil {
 		return nil, errors.New("invalid end time")
 	}

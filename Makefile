@@ -1,8 +1,8 @@
 run-server:
 	go run cmd/server/server.go
 
-run-client:
-	go run cmd/client/client.go
+run-web:
+	go run web/web.go
 
 lint:
 	golangci-lint run

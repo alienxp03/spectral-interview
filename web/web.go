@@ -13,8 +13,8 @@ import (
 
 const (
 	form = `<form method="POST">
-                    Start time: <input type="text" name="start_time" value="%s" />
-                    End time: <input type="text" name="end_time" value="%s" />
+                    Start time: <input type="text" size="25" name="start_time" value="%s" />
+                    End time: <input type="text" size="25" name="end_time" value="%s" />
                     <input type="submit" value="Get Usage" />
                   </form>`
 )
@@ -26,8 +26,8 @@ func main() {
 }
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
 	if r.Method == "POST" {
-		w.Header().Set("Content-Type", "text/html")
 
 		startTime := r.FormValue("start_time")
 		endTime := r.FormValue("end_time")
@@ -40,6 +40,9 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		renderBody(w, startTime, endTime, usages)
 		return
 	}
+
+	fmt.Fprintf(w, form, "", "")
+	return
 }
 
 func renderError(w http.ResponseWriter, err error) {

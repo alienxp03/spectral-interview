@@ -24,8 +24,8 @@ func TestGetUsages(t *testing.T) {
 	}{
 		{
 			name:  "OK",
-			start: "2022-01-01 00:00:00",
-			end:   "2022-01-01 01:00:00",
+			start: "2022-01-01T00:00:00Z",
+			end:   "2022-01-01T01:00:00Z",
 			db: &mockDB{
 				getUsageHistory: func(t *testing.T, startTime, endTime time.Time) ([]sqlite.Usage, error) {
 					return []sqlite.Usage{
@@ -58,26 +58,26 @@ func TestGetUsages(t *testing.T) {
 		},
 		{
 			name:    "invalid start time",
-			start:   "2022-33-31 00:00:00",
-			end:     "2022-01-01 01:00:00",
+			start:   "2022-33-31T00:00:00Z",
+			end:     "2022-01-01T01:00:00Z",
 			wantErr: status.Errorf(http.StatusBadRequest, "invalid request: invalid start time").Error(),
 		},
 		{
 			name:    "invalid end time",
-			start:   "2022-01-01 01:00:00",
-			end:     "2022-33-31 00:00:00",
+			start:   "2022-01-01T01:00:00Z",
+			end:     "2022-33-31T00:00:00Z",
 			wantErr: status.Errorf(http.StatusBadRequest, "invalid request: invalid end time").Error(),
 		},
 		{
 			name:    "period is longer than allowed",
-			start:   "2022-01-01 01:00:00",
-			end:     "2022-04-30 00:00:00",
+			start:   "2022-01-01T01:00:00Z",
+			end:     "2022-04-30T00:00:00Z",
 			wantErr: status.Errorf(http.StatusBadRequest, "invalid request: only periods of up to 90 days are allowed").Error(),
 		},
 		{
 			name:  "db error",
-			start: "2022-01-01 00:00:00",
-			end:   "2022-01-01 01:00:00",
+			start: "2022-01-01T00:00:00Z",
+			end:   "2022-01-01T01:00:00Z",
 			db: &mockDB{
 				getUsageHistory: func(t *testing.T, startTime, endTime time.Time) ([]sqlite.Usage, error) {
 					return []sqlite.Usage{}, errors.New("db error")
