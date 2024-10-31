@@ -1,3 +1,5 @@
+.PHONY: ensure-mod
+
 run-server:
 	go run cmd/server/server.go
 
@@ -14,3 +16,6 @@ test:
 test-coverage:
 	go test -tags=integration -v -coverprofile=coverage.out ./... | { command -v gocol >/dev/null && gocol || cat; }
 	go tool cover -html=coverage.out
+
+ensure-mod:
+	go mod download
